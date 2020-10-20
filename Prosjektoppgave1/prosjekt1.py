@@ -1,6 +1,8 @@
+import math
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+from nearest_neighbor import nearest_neighbor2
 
 def train_test_split(data):
     # create boolean index array with True for every even index and False for
@@ -22,54 +24,14 @@ def readfile(filename):
     # print(data.to_numpy())
     return data
 
-def nearest_neighbor(data):
-    max_dim = data.shape[1] - 1
 
-    for d in range(1, max_dim + 1):
-        train_object = train[:, 1:]
-        test_object = test[:, 1:]
-
-        if d == 1:
-            # Find the distance from test object to train object for all features
-            distance = np.abs(test_object[:, np.newaxis] - train_object)
-
-            # Find the index of the nearest neighbor for each feature
-            index = np.argmin(distance, axis=1)
-
-            # Get the class of the nearest neighbor for each feature
-            NN_class = train[index, 0]
-
-            # Find failed classified elements for each feature
-            boolean = NN_class != test[:, 0].reshape(test.shape[0], 1)
-
-            # Calculate error rate for each feature
-            err_rate = np.mean(boolean, axis=0)
-
-        elif d == max_dim:
-            # Find the distance from test object to train object using all features
-            distance = np.linalg.norm(test_object[:, np.newaxis] - train_object, axis=1, keepdims=True)
-
-            # Find the index of the nearest neighbor
-            index = np.argmin(distance, axis=1)
-
-            # Get the class of the nearest neighbor
-            NN_class = train[index, 0]
-
-            # Find failed classified elements
-            boolean = NN_class != test[:, 0].reshape(test.shape[0], 1)
-
-            # Calculate error rate for each feature
-            err_rate = np.mean(boolean, axis=0)
-
-        elif d == 2:
-            for i in range(1, maxdim + 1):
-                for j in range(i, maxdim + 1):
-                    distance = np.linalg.norm()
 
 
 
 data = readfile('ds-1.txt')
 train, test = train_test_split(data.to_numpy())
+
+nearest_neighbor2(test, train)
 
 
 train_object = train[:, 1:]
