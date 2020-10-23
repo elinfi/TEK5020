@@ -16,11 +16,18 @@ def nearest_neighbor(test_data, train_data):
     err_rate_d1 = np.zeros(features)
     err_rate_d2 = np.zeros(comb(features, 2, exact=True))
     err_rate_d3 = np.zeros(comb(features, 3, exact=True))
+
+    # list with indexes of combinations of features
+    idx_d1 = []
+    idx_d2 = []
+    idx_d3 = []
+
     if features == 4:
         err_rate_d4 = np.zeros(1)
+        idx_d4 = []
 
-    test_idx = 0
-    for test in test_objects:
+    for test_idx in range(test_objects.shape[0]):
+        test = test_objects[test_idx]
         d2_idx = 0
         d3_idx = 0
         for i in range(features):
@@ -29,6 +36,7 @@ def nearest_neighbor(test_data, train_data):
             index = np.argmin(difference)
             class_error = test_data[test_idx, 0] != train_data[index, 0]
             err_rate_d1[i] += class_error
+            idx_d1.append([i])
 
             for j in range(i + 1, features):
                 # error rate in two dimensions
@@ -36,6 +44,7 @@ def nearest_neighbor(test_data, train_data):
                 index = np.argmin(difference)
                 class_error = test_data[test_idx, 0] != train_data[index, 0]
                 err_rate_d2[d2_idx] += class_error
+                idx_d2.append([i, j])
                 d2_idx += 1
 
                 for k in range(j + 1, features):
@@ -44,6 +53,7 @@ def nearest_neighbor(test_data, train_data):
                     index = np.argmin(difference)
                     class_error = test_data[test_idx, 0] != train_data[index, 0]
                     err_rate_d3[d3_idx] += class_error
+                    idx_d3.append([i, j, k])
                     d3_idx += 1
 
                     for l in range(k + 1, features):
@@ -51,8 +61,8 @@ def nearest_neighbor(test_data, train_data):
                         difference = np.linalg.norm(test[[i, j, k, l]] - train_objects[:, [i, j, k, l]], axis=1)
                         index = np.argmin(difference)
                         class_error = test_data[test_idx, 0] != train_data[index, 0]
+                        idx_d4.append([i, j, k, l])
                         err_rate_d4[0] += class_error
-        test_idx += 1
 
     n_objects = test_objects.shape[0]
     err_rate_d1 /= n_objects
@@ -60,10 +70,6 @@ def nearest_neighbor(test_data, train_data):
     err_rate_d3 /= n_objects
     if features == 4:
         err_rate_d4 /= n_objects
-        return err_rate_d1, err_rate_d2, err_rate_d3, err_rate_d4
-    return err_rate_d1, err_rate_d2, err_rate_d3
-
-    print(err_rate_d1)
-    print(err_rate_d2)
-    print(err_rate_d3)
-    print(err_rate_d4)
+        return err_rate_d1, err_rate_d2, err_rate_d3, err_rate_d4,\
+               idx_d1, idx_d2, idx_d3, idx_d4
+    return err_rate_d1, err_rate_d2, err_rate_d3, idx_d1, idx_d2, idx_d3
