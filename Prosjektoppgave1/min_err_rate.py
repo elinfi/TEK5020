@@ -21,7 +21,6 @@ def min_err_rate(test_data, train_data, feature_idx):
     n = train_data.shape[0]
     n1 = np.sum(idx1)
     n2 = n - n1
-    print(n1, n2)
 
     # a priori probability for each class
     P_omega1 = n1/n
@@ -41,8 +40,10 @@ def min_err_rate(test_data, train_data, feature_idx):
     w1 = np.linalg.pinv(cov1) @ mu1.T
     w2 = np.linalg.pinv(cov2) @ mu2.T
 
-    w10 = -1/2 * mu1 @ np.linalg.pinv(cov1) @ mu1.T - 1/2 * np.log(np.linalg.det(cov1)) + np.log(P_omega1)
-    w20 = -1/2 * mu2 @ np.linalg.pinv(cov2) @ mu2.T - 1/2 * np.log(np.linalg.det(cov2)) + np.log(P_omega2)
+    w10 = -1/2 * mu1 @ np.linalg.pinv(cov1) @ mu1.T \
+          - 1/2 * np.log(np.linalg.det(cov1)) + np.log(P_omega1)
+    w20 = -1/2 * mu2 @ np.linalg.pinv(cov2) @ mu2.T \
+          - 1/2 * np.log(np.linalg.det(cov2)) + np.log(P_omega2)
 
     err_rate = 0
     for i in range(test_objects.shape[0]):
@@ -55,6 +56,5 @@ def min_err_rate(test_data, train_data, feature_idx):
             class_error = test_data[i, 0] != 2
         err_rate += class_error
     err_rate /= test_objects.shape[0]
-    print(err_rate)
 
     return err_rate
