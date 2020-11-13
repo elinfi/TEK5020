@@ -5,6 +5,23 @@ def nearest_neighbor(test_data, train_data):
     """
     Calculate the error rate for all combinations of features using the nearest
     neighbor classification.
+
+    Keyword arguments:
+    test_data -- input test data
+    train_data -- input train data
+
+    Return value:
+    err_rate_d1 -- array containing error rate for feature combinations in 1D
+    err_rate_d2 -- array containing error rate for feature combinations in 2D
+    err_rate_d3 -- array containing error rate for feature combinations in 3D
+
+    idx_d1 -- list containing the feature combinations in 1D
+    idx_d2 -- list containing the feature combinations in 2D
+    idx_d3 -- list containing the feature combinations in 3D
+
+    If the  input data contains four feature, the following are returned too:
+    err_rate_d4 -- array containing error rate for feature combinations in 4D
+    idx_d4 -- list containing the feature combinations in 4D
     """
     # remove the true class for easier computations
     test_objects = test_data[:, 1:]

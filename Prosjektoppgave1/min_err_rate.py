@@ -1,10 +1,33 @@
 import numpy as np
 
 def g(x, W, w, w0):
+    """ Calcualates the quadratic discriminant function.
+
+    Keyword arguments:
+    x -- 1xd feature vector
+    W -- dxd matrix
+    w -- dx1 vector
+    w0 -- 1x1 scalar
+
+    Return value:
+    the result of the quadratic discriminant function
+    """
     return x @ W @ x.T + w.T @ x.T + w0
 
 def min_err_rate(test_data, train_data, feature_idx):
     """
+    Calculate the error rate for the best feature combination using the minimum
+    error rate.
+
+    Keyword arguments:
+    test_date -- input test data
+    train_data -- input train data
+    feature_idx -- index for the best best feature combination
+
+    Return value:
+    err_rate -- classification error rate for the given feature combination
+
+    Other:
     Every variable name ended with 1 or 2 refers to class 1 or 2 respectively.
     """
     test_objects = test_data[:, 1:]

@@ -5,6 +5,18 @@ def g(x, a):
     return a.T @ y.T
 
 def least_squares(test_data, train_data, feature_idx):
+    """
+    Calculate the error rate for the best feature combination using the least
+    squares method.
+
+    Keyword arguments:
+    test_date -- input test data
+    train_data -- input train data
+    feature_idx -- index for the best best feature combination
+
+    Return value:
+    err_rate -- classification error rate for the given feature combination
+    """
     test_objects = test_data[:, 1:]
     test_objects = test_objects[:, feature_idx]
     train_objects = train_data[:, 1:]
