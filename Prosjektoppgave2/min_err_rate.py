@@ -69,7 +69,7 @@ def min_err_rate(test, train1, train2, train3):
     cov1 /= n1
     cov2 /= n2
     cov3 /= n3
-    
+
     # print(np.linalg.det(cov1))
     # print(np.linalg.det(cov2))
     # print(np.linalg.det(cov3))
@@ -91,7 +91,6 @@ def min_err_rate(test, train1, train2, train3):
 
     segmentation = np.zeros(test.shape)
     RGB = [[1, 0.8, 0.3], [1, 0.7, 0.9], [0.1, 0.8, 0.7]]
-    cov1 = np.zeros((3, 3))
     for i in range(test.shape[0]):
         for j in range(test.shape[1]):
             g1 = g(test[i, j], W1, w1, w10)
